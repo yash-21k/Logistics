@@ -3,57 +3,90 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment.development';
 import { AuthService } from './auth.service';
- 
+
 @Injectable({
   providedIn: 'root'
 })
- 
 export class HttpService {
- 
   public serverName=environment.apiUrl;
- 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService:AuthService) {
+
+   }
  
   getOrderStatus(cargoId:any):Observable<any> {
-    //complete this function
-    return this.http.get(`${this.serverName}/api/customer/cargo -status/${cargoId}`);
+   
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`)
+    return this.http.get(this.serverName+`/api/customer/cargo-status?cargoId=`+cargoId,{headers:headers});
   }
   updateCargoStatus(newStatus:any,cargoId:any):Observable<any> {
-   //complete this function
-    return this.http.put(`${this.serverName}/api/driver/update-cargo-status/${cargoId}`, newStatus);
+  
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);
+    return this.http.put<any>(this.serverName+'/api/driver/update-cargo-status?cargoId='+cargoId+'&newStatus='+newStatus,{},{headers:headers});
   }
   assignDriver(driverid: any, cargoId: any): Observable<any> {
-   //complete this function
-   return this.http.post(`${this.serverName}/api/business/assign-cargo/${cargoId}`, driverid)
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);
+    return this.http.post<any>(
+      `${this.serverName}/api/business/assign-cargo?cargoId=${cargoId}&driverId=${driverid}`,
+      {}, // Body
+      { headers: headers }
+    );
   }
- 
+  
+
   getAssignOrders(driverId:any):Observable<any> {
-  //complete this function
-    return this.http.get(`${this.serverName}/api/driver/cargo/${driverId}`)
+   
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`)
+    return this.http.get(this.serverName+`/api/driver/cargo?driverId=`+driverId,{headers:headers});
   }
   getCargo():Observable<any> {
-   //complete this function
-    return this.http.get(`${this.serverName}/api/business/cargo`)
+   
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`)
+    return this.http.get(this.serverName+`/api/business/cargo`,{headers:headers});
   }
- 
+
   getDrivers():Observable<any> {
-    //complete this function
-    return this.http.get(`${this.serverName}/api/business/drivers`)
+   
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`)
+    return this.http.get(this.serverName+`/api/business/drivers`,{headers:headers});
   }
   addCargo(details:any):Observable<any> {
-  //complete this function
-    return this.http.post(`${this.serverName}/api/business/cargo`, details)
+  
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);
+    return this.http.post(this.serverName+'/api/business/cargo',details,{headers:headers});
   }
   Login(details:any):Observable<any> {
-  //complete this function
-    return this.http.post(`${this.serverName}/api/login`, details)
+    
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    return this.http.post(this.serverName+'/api/login',details,{headers:headers});
   }
   registerUser(details:any):Observable<any> {
-   //complete this function
-    return this.http.post(`${this.serverName}/api/register`, details)
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    return this.http.post(this.serverName+'/api/register',details,{headers:headers});
   }
  
- 
- 
+  
+  
 }
- 
