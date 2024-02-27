@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
-public interface CargoRepository {
-
-    Object findById(Long cargoId);
+@Repository
+public interface CargoRepository extends JpaRepository<Cargo, Long>{
     // extend jpa repository to add custom query methods if needed
-
+    List<Cargo> findByBusinessId(Long businessId);
+    List<Cargo> findByDriverId(Long driverId);
 }

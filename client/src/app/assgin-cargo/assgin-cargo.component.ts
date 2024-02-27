@@ -23,19 +23,40 @@ export class AssginCargoComponent {
   {
   }
   ngOnInit(): void {
-
+   this.getAssginCargo();
+   this.statusModel.newStatus=null;
   }
   getAssginCargo() {
-  //complete this function
+    this.cargList=[];
+    this.httpService.getAssignOrders(1).subscribe((data: any) => {this.cargList=data;
+      console.log(this.cargList);
+    }, error => {
+      // Handle error
+      this.showError = true;
+      this.errorMessage = "Error. Please try again.";
+      console.error('Login error:', error);
+    });;
   }
   addStatus(value:any)
   {
-  //complete this function
+    this.statusModel.cargoId=value.id
   }
   assignDriver()
-  {//complete this function
-  }
-
-
-  
+  {
+    if(this.statusModel.newStatus!=null)
+    {
+      this.showMessage = false;
+      this.httpService.updateCargoStatus(this.statusModel.newStatus,this.statusModel.cargoId).subscribe((data: any) => {
+        debugger;
+        this.showMessage = true;
+        this.responseMessage=data.message;;
+        this.getAssginCargo();
+      }, error => {
+        // Following code handles errors
+        this.showError = true;
+        this.errorMessage = "Error. Please try again.";
+        console.error('Login error:', error);
+      });;
+    }
+  }  
 }

@@ -7,12 +7,12 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-addcargo',
-  templateUrl: './addcargo.component.html',
-  styleUrls: ['./addcargo.component.scss']
+  templateUrl: './addcargo.component.html'
+ 
 })
 export class AddcargoComponent implements OnInit {
   itemForm: FormGroup;
-  formModel:any={status:null,content:'',size:''};
+  formModel:any={status:null};
   showError:boolean=false;
   errorMessage:any;
   cargList:any=[];
@@ -22,29 +22,83 @@ export class AddcargoComponent implements OnInit {
   responseMessage: any;
   constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
     {
-      this.itemForm = formBuilder.group({}) 
+      this.itemForm = this.formBuilder.group({
+        content: [this.formModel.username,[ Validators.required]],
+        size: [this.formModel.password,[ Validators.required]],
+        status: [this.formModel.password,[ Validators.required]]
+       
+    });
   }
   ngOnInit(): void {
- 
+   this.getCargo();
+   this.getDrivers();
+   this.assignModel.driverId=null;
   }
   getCargo() {
- //complete this function
+    this.cargList=[];
+    this.httpService.getCargo().subscribe((data: any) => { this.cargList=data;
+      console.log(this.cargList);}, 
+      error => {
+      // Following code handles errors
+      this.showError = true;
+      this.errorMessage = "Error. Please try again.";
+      console.error('Login error:', error);
+    });;
   }
   getDrivers() {
-  //complete this function
+    this.driverList=[];
+    this.httpService.getDrivers().subscribe((data: any) => {this.driverList=data;
+      console.log(this.driverList);}, 
+      error => {
+      // Following code handles errors
+      this.showError = true;
+      this.errorMessage = "Error. Please try again.";
+      console.error('Login error:', error);
+    });;
   }
  
   onSubmit()
   {
-    //complete this function
+    if(this.itemForm.valid)
+    {
+      if (this.itemForm.valid) {
+        this.showError = false;
+        this.httpService.addCargo(this.itemForm.value).subscribe((data: any) => {this.itemForm.reset();
+          this.getCargo();}, 
+          error => {
+          // Following code handles errors
+          this.showError = true;
+          this.errorMessage = "Error. Please try again.";
+          console.error('Login error:', error);
+        });;
+      } else {
+        this.itemForm.markAllAsTouched();
+      }
+    }
+    else{
+      this.itemForm.markAllAsTouched();
+    }
   }
   addDriver(value:any)
   {
-   //complete this function
+    this.assignModel.cargoId=value.id
   }
   assignDriver()
   {
-   //complete this function
+    if(this.assignModel.driverId!=null)
+    {
+      this.showMessage = false;
+      this.httpService.assignDriver(this.assignModel.driverId,this.assignModel.cargoId).subscribe((data: any) => {
+        debugger;
+        this.showMessage = true;
+        this.responseMessage=data.message;;
+      }, error => {
+        // Handle error
+        this.showError = true;
+        this.errorMessage = "Error. Please try again.";
+        console.error('Login error:', error);
+      });;
+    }
   }
   
 }
