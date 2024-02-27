@@ -7,16 +7,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 
+@Entity
 public class Cargo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String content;
     private String size;
     private String status; // Status can be 'PENDING', 'IN_TRANSIT', 'DELIVERED'
 
+    @ManyToOne
     private Business business;
 
+    @ManyToOne
     private Driver driver;
+
+    
+
+    public Cargo(String content, String size, String status, Business business, Driver driver) {
+        this.content = content;
+        this.size = size;
+        this.status = status;
+        this.business = business;
+        this.driver = driver;
+    }
+
+    public Cargo() {
+    }
 
     public Long getId() {
         return id;
@@ -66,4 +84,3 @@ public class Cargo {
         this.driver = driver;
     }
 }
-

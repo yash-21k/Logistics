@@ -1,61 +1,39 @@
-package com.wecp.logisticsmanagementandtrackingsystem.config;
+package com.wecp.logisticsmanagementandtrackingsystem.Controller;
 
-import com.wecp.logisticsmanagementandtrackingsystem.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+// import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
-    private final JwtRequestFilter jwtRequestFilter;
-    private final PasswordEncoder passwordEncoder;
+import com.wecp.logisticsmanagementandtrackingsystem.dto.CargoStatusResponse;
+import com.wecp.logisticsmanagementandtrackingsystem.service.CustomerService;
 
+
+@RestController
+@RequestMapping
+public class CustomerController {
+    
     @Autowired
-    public SecurityConfig(UserDetailsService userDetailsService,
-                          JwtRequestFilter jwtRequestFilter,
-                          PasswordEncoder passwordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.jwtRequestFilter = jwtRequestFilter;
-        this.passwordEncoder = passwordEncoder;
+    private CustomerService customerService;
+
+    @GetMapping("/api/customer/cargo-status/{cargoId}")
+    // @PreAuthorize("hasAuthority('CUSTOMER')")
+    public ResponseEntity<CargoStatusResponse> viewCargoStatus(@PathVariable Long cargoId) {
+        if(cargoId!=null){
+        return new ResponseEntity<CargoStatusResponse>(customerService.viewCargoStatus(cargoId), HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<CargoStatusResponse>(HttpStatus.NOT_FOUND);
+        }
+
+        // get cargo status from customer service and return it with status code 200
+
+        // if cargo status is not found, return 404 status code
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        // complete these method to configure the security of the application
-
-        // /api/register and /api/login should be permitted to all
-        // /api/business/cargo should be permitted to users with BUSINESS role
-        // /api/business/assign-cargo should be permitted to users with BUSINESS role
-        // /api/driver/cargo should be permitted to users with DRIVER role
-        // /api/driver/update-cargo-status should be permitted to users with DRIVER role
-        // /api/customer/cargo-status should be permitted to users with CUSTOMER role
-        // all other requests should be authenticated
-
-        // configure jwtRequestFilter to be executed before UsernamePasswordAuthenticationFilter
-    }
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 }

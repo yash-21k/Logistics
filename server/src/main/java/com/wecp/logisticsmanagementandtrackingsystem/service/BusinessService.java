@@ -6,10 +6,14 @@ import com.wecp.logisticsmanagementandtrackingsystem.repository.BusinessReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+@Service
 public class BusinessService {
+
+    @Autowired
+    private BusinessRepository businessRepository;
 
     public Business registerBusiness(Business business) {
         // save business to database
+        return this.businessRepository.save(business);
     }
 }

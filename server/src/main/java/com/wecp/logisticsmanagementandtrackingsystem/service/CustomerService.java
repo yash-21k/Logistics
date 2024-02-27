@@ -25,10 +25,8 @@ public class CustomerService {
     }
 
     public CargoStatusResponse viewCargoStatus(Long cargoId) {
-
        
-
-        Cargo cargo= ((Object) cargoRepository.findById(cargoId)).orElse(null);
+        Cargo cargo = (cargoRepository.findById(cargoId)).orElse(null);
         if(cargo!=null){
             return new CargoStatusResponse(cargo.getId(),cargo.getStatus());
         }
