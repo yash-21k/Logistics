@@ -20,11 +20,12 @@ public class CustomerService {
     private CargoRepository cargoRepository;
 
     public Customer createCustomer(Customer customer) {
+         // save the customer to the database
         return customerRepository.save(customer);
-        // save the customer to the database
     }
 
     public CargoStatusResponse viewCargoStatus(Long cargoId) {
+        // Find the cargo by its id
        
         Cargo cargo = (cargoRepository.findById(cargoId)).orElse(null);
         if(cargo!=null){
@@ -34,6 +35,6 @@ public class CustomerService {
             return null;
         }
         
-        // Find the cargo by its id
+        
     }
 }

@@ -21,17 +21,21 @@ export class ViewcargostatusComponent {
 
   search()
   {
-   //complete this function 
-   debugger;
-   this.cargo={};
-   this.httpService.getCargo().subscribe((data:any)=>{
-    this.cargo=data;
-    console.log(data);
-   }, error =>{
-    this.showError = true;
-    this.errorMessage = "An error occured while searching the cargo. Please try again with valid cargo data"
-   })
+    debugger;
+    if(this.cargoIdMd!=null)
+    {
+      this.cargo={};
+      this.httpService.getOrderStatus(this.cargoIdMd).subscribe((data: any) => {
+        this.cargo=data;
+        console.log(this.cargo);
+      }, error => {
+        // Handles error
+        this.showError = true;
+        this.errorMessage = "No record found with entered Cargo Id. Please enter correct cargo Id";
+        console.error('Login error:', error);
+      });;
+    }
+     
+    
   }
-  }
-
-
+}

@@ -19,7 +19,6 @@ export class LoginComponent {
   errorMessage: any;
   constructor(public router: Router, private formBuilder: FormBuilder, private httpService: HttpService, private authService: AuthService) {
     this.itemForm = this.formBuilder.group({
-      //compelete this
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
 
@@ -37,6 +36,10 @@ export class LoginComponent {
           debugger;
 
           // localStorage.setItem('role', data.role);
+          // console.log("ID Details");
+          // console.log(data.id)
+          //alert(data.id);
+          // this.authService.SetId(data.id);
           this.authService.SetRole(data.role);
           this.authService.saveToken(data.token)
           this.router.navigateByUrl('/dashboard');
@@ -51,7 +54,7 @@ export class LoginComponent {
         }
       }, error => {
         // Handle error
-        this.showError = false;
+        this.showError = true;
         this.errorMessage = "An error occurred while logging in. Please try again later.";
         console.error('Login error:', error);
       });;
