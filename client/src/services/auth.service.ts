@@ -10,10 +10,19 @@ export class AuthService {
 
   constructor() {}
 
-  // save token received from login
+  // Method to save token received from login
   saveToken(token: string) {
+    this.token = token;
+    this.isLoggedIn = true;
+    // Optionally, you can save the token to local storage or a cookie for persistence
     localStorage.setItem('token', token);
   }
+  // SetId(Id:any){
+  //   localStorage.setItem('Id', Id);
+  // }
+  // get getId():string|null{
+  //   return localStorage.getItem('Id');
+  // }
    SetRole(role:any)
   {
     localStorage.setItem('role',role);

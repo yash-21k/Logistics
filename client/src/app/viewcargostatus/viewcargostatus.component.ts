@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
-
+ 
 @Component({
   selector: 'app-viewcargostatus',
   templateUrl: './viewcargostatus.component.html',
@@ -14,24 +14,28 @@ export class ViewcargostatusComponent {
   showError:any;
   errorMessage: any;
   cargoIdMd:any;
-  constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
+  constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService)
   {
-
+ 
   }
-
+ 
   search()
   {
-   //complete this function 
-   debugger;
-   this.cargo={};
-   this.httpService.getCargo().subscribe((data:any)=>{
-    this.cargo=data;
-    console.log(data);
-   }, error =>{
-    this.showError = true;
-    this.errorMessage = "An error occured while searching the cargo. Please try again with valid cargo data"
-   })
+    debugger;
+    if(this.cargoIdMd!=null)
+    {
+      this.cargo={};
+      this.httpService.getOrderStatus(this.cargoIdMd).subscribe((data: any) => {
+        this.cargo=data;
+        console.log(this.cargo);
+      }, error => {
+        // Handle error
+        this.showError = true;
+        this.errorMessage = "An error occurred while searching in. Please try again later or no record found";
+        console.error('Login error:', error);
+      });;
+    }
+     
+   
   }
-  }
-
-
+}

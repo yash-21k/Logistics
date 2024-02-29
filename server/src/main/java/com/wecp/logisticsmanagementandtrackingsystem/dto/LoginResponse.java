@@ -11,16 +11,19 @@ public class LoginResponse {
     private String email;
 
     private String role;
+    // private Long Id;
 
     @JsonCreator
     public LoginResponse(@JsonProperty("token") String token,
                          @JsonProperty("username") String username,
                             @JsonProperty("email") String email,
-                            @JsonProperty("role") String role) {
+                            @JsonProperty("role") String role){
+                            //@JsonProperty("id") Long Id) {
         this.token = token;
         this.username = username;
         this.email = email;
         this.role = role;
+        //this.Id=Id;
     }
 
     public LoginResponse(String token2, String role2, Integer userId) {
@@ -60,5 +63,14 @@ public class LoginResponse {
     public void setRole(String role) {
         this.role = role;
     }
+
+    // public Long getId() {
+    //     return Id;
+    // }
+
+    // public void setId(Long id) {
+    //     this.Id = id;
+    // }
+
 }
 

@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AddcargoComponent implements OnInit {
   itemForm: FormGroup;
+  itemForm1: FormGroup;
   formModel:any={status:null};
   showError:boolean=false;
   errorMessage:any;
@@ -20,40 +21,46 @@ export class AddcargoComponent implements OnInit {
   driverList:any=[]
   showMessage: any;
   responseMessage: any;
+  driverId:any;
   constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
     {
       this.itemForm = this.formBuilder.group({
-        content: [this.formModel.username,[ Validators.required]],
-        size: [this.formModel.password,[ Validators.required]],
-        status: [this.formModel.password,[ Validators.required]]
+        content: [this.formModel.content,[ Validators.required]],
+        size: [this.formModel.size,[ Validators.required]],
+        status: [this.formModel.status,[ Validators.required]]
        
     });
+    this.itemForm1 = this.formBuilder.group({
+      driver: [this.formModel.driver]
+    })
   }
   ngOnInit(): void {
    this.getCargo();
    this.getDrivers();
-   this.assignModel.driverId=null;
+   this.driverId=null;
   }
   getCargo() {
     this.cargList=[];
-    this.httpService.getCargo().subscribe((data: any) => { this.cargList=data;
-      console.log(this.cargList);}, 
-      error => {
-      // Following code handles errors
+    this.httpService.getCargo().subscribe((data: any) => {
+      this.cargList=data;
+      console.log(this.cargList);
+    }, error => {
+      // Handle error
       this.showError = true;
-      this.errorMessage = "Error. Please try again.";
-      console.error('Login error:', error);
+      this.errorMessage = "Cannot fetch cargo. Please try again later.";
+      console.error('Error:', error);
     });;
   }
   getDrivers() {
     this.driverList=[];
-    this.httpService.getDrivers().subscribe((data: any) => {this.driverList=data;
-      console.log(this.driverList);}, 
-      error => {
-      // Following code handles errors
+    this.httpService.getDrivers().subscribe((data: any) => {
+      this.driverList=data;
+      console.log(this.driverList);
+    }, error => {
+      // Handle error
       this.showError = true;
-      this.errorMessage = "Error. Please try again.";
-      console.error('Login error:', error);
+      this.errorMessage = "Cannot get Drivers. Please try again later.";
+      console.error('Error:', error);
     });;
   }
  
@@ -61,19 +68,16 @@ export class AddcargoComponent implements OnInit {
   {
     if(this.itemForm.valid)
     {
-      if (this.itemForm.valid) {
         this.showError = false;
-        this.httpService.addCargo(this.itemForm.value).subscribe((data: any) => {this.itemForm.reset();
-          this.getCargo();}, 
-          error => {
-          // Following code handles errors
+        this.httpService.addCargo(this.itemForm.value).subscribe((data: any) => {
+          this.itemForm.reset();
+          this.getCargo();
+        }, error => {
+          // Handle error
           this.showError = true;
-          this.errorMessage = "Error. Please try again.";
+          this.errorMessage = "An error occurred while logging in. Please try again later.";
           console.error('Login error:', error);
         });;
-      } else {
-        this.itemForm.markAllAsTouched();
-      }
     }
     else{
       this.itemForm.markAllAsTouched();
@@ -85,18 +89,20 @@ export class AddcargoComponent implements OnInit {
   }
   assignDriver()
   {
-    if(this.assignModel.driverId!=null)
+    console.log("assigning")
+    this.assignModel.driverId = this.driverId;
+    console.log(this.assignModel.driverId)
+    if(this.assignModel.driverId != null)
     {
       this.showMessage = false;
       this.httpService.assignDriver(this.assignModel.driverId,this.assignModel.cargoId).subscribe((data: any) => {
-        debugger;
         this.showMessage = true;
-        this.responseMessage=data.message;;
+        this.responseMessage= data.message;
       }, error => {
         // Handle error
         this.showError = true;
-        this.errorMessage = "Error. Please try again.";
-        console.error('Login error:', error);
+        this.errorMessage = "An error occurred while assigning driver. Please try again later.";
+        console.error('Error:', error);
       });;
     }
   }

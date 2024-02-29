@@ -21,9 +21,9 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/api/customer/cargo-status/{cargoId}")
-    // @PreAuthorize("hasAuthority('CUSTOMER')")
-    public ResponseEntity<CargoStatusResponse> viewCargoStatus(@PathVariable Long cargoId) {
+    @GetMapping("/api/customer/cargo-status")
+    //@PreAuthorize("hasAuthority('CUSTOMER')")
+    public ResponseEntity<CargoStatusResponse> viewCargoStatus(@RequestParam Long cargoId) {
         if(cargoId!=null){
         return new ResponseEntity<CargoStatusResponse>(customerService.viewCargoStatus(cargoId), HttpStatus.OK);
         }

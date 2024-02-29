@@ -28,7 +28,7 @@ export class DashbaordComponent {
   dashboardView()
   {
     console.log(this.stateIdMd);
-    debugger;
+    // debugger;
    
       console.log("stateMd Call");
       this.cargolist={};
