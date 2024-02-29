@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpService } from '../../services/http.service';
-
+ 
 @Component({
   selector: 'app-dashbaord',
   templateUrl: './dashbaord.component.html',
@@ -15,7 +15,7 @@ export class DashbaordComponent {
   errorMessage: any;
   stateIdMd:any;
   roleName: string | null;
-  constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
+  constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService)
   {
     console.log("Constructor");
     this.roleName=authService.getRole;
@@ -24,11 +24,11 @@ export class DashbaordComponent {
     console.log("ngOnInit");
     this.dashboardView();
   }
-
+ 
   dashboardView()
   {
     console.log(this.stateIdMd);
-    debugger;
+    // debugger;
    
       console.log("stateMd Call");
       this.cargolist={};

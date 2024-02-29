@@ -24,7 +24,6 @@ public class Cargo {
     private Driver driver;
 
     
-
     public Cargo(String content, String size, String status, Business business, Driver driver) {
         this.content = content;
         this.size = size;
