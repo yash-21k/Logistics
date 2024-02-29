@@ -5,7 +5,7 @@ package com.wecp.logisticsmanagementandtrackingsystem.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-// import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Cargo;
@@ -20,17 +20,18 @@ public class DriverController {
     @Autowired
     private DriverService driverService;
  
-    @GetMapping("/api/driver/cargo/{driverId}")
-    // @PreAuthorize("hasAuthority('DRIVER')")
-    public ResponseEntity<List<Cargo>> viewAssignedCargos(@PathVariable Long driverId) {
+    @GetMapping("/api/driver/cargo")
+    //@PreAuthorize("hasAuthority('DRIVER')")
+    public ResponseEntity<List<Cargo>> viewAssignedCargos(@RequestParam Long driverId) {
         // get assigned cargos for the driver and return with 200 OK
         return new ResponseEntity<>(driverService.viewDriverCargos(driverId),HttpStatus.OK);
     }
  
-    @PutMapping("/update-cargo-status/{cargoId}/{newStatus}")
-    // @PreAuthorize("hasAuthority('DRIVER')")
-    public ResponseEntity<String> updateCargoStatus(@PathVariable Long cargoId, @PathVariable String newStatus) {
+    @PutMapping("api/driver/update-cargo-status")
+    //@PreAuthorize("hasAuthority('DRIVER')")
+    public ResponseEntity<String> updateCargoStatus(@RequestParam Long cargoId, @RequestParam String newStatus) {
         // update the cargo status
+        cargoId = (Long)cargoId;
         boolean updateSuccess = driverService.updateCargoStatus(cargoId, newStatus);
  
         if (updateSuccess) {

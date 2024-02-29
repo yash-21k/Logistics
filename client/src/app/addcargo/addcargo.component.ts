@@ -5,6 +5,7 @@ import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
 
 
+
 @Component({
   selector: 'app-addcargo',
   templateUrl: './addcargo.component.html'
@@ -36,8 +37,10 @@ export class AddcargoComponent implements OnInit {
   }
   getCargo() {
     this.cargList=[];
-    this.httpService.getCargo().subscribe((data: any) => { this.cargList=data;
-      console.log(this.cargList);}, 
+    this.httpService.getCargo().subscribe((data: any) => { 
+      this.cargList=data;
+      console.log(this.cargList);
+    }, 
       error => {
       // Following code handles errors
       this.showError = true;
@@ -48,7 +51,8 @@ export class AddcargoComponent implements OnInit {
   getDrivers() {
     this.driverList=[];
     this.httpService.getDrivers().subscribe((data: any) => {this.driverList=data;
-      console.log(this.driverList);}, 
+      console.log(this.driverList);
+    }, 
       error => {
       // Following code handles errors
       this.showError = true;
@@ -61,9 +65,9 @@ export class AddcargoComponent implements OnInit {
   {
     if(this.itemForm.valid)
     {
-      if (this.itemForm.valid) {
         this.showError = false;
-        this.httpService.addCargo(this.itemForm.value).subscribe((data: any) => {this.itemForm.reset();
+         const formData = this.itemForm.value;
+        this.httpService.addCargo(formData).subscribe((data: any) => {this.itemForm.reset();
           this.getCargo();}, 
           error => {
           // Following code handles errors
@@ -71,9 +75,6 @@ export class AddcargoComponent implements OnInit {
           this.errorMessage = "Error. Please try again.";
           console.error('Login error:', error);
         });;
-      } else {
-        this.itemForm.markAllAsTouched();
-      }
     }
     else{
       this.itemForm.markAllAsTouched();

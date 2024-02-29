@@ -37,7 +37,6 @@ export class RegistrationComponent {
     {
       this.showMessage=false;
       this.bookService.registerUser(this.itemForm.value).subscribe(data=>{    
-        debugger;
         this.showMessage=false;
         this.responseMessage='Welcome '+data.name+" you are successfully registered";
         this.itemForm.reset();

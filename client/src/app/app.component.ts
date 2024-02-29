@@ -12,13 +12,11 @@ export class AppComponent {
   roleName: string | null;
   constructor(private authService: AuthService, private router:Router)
   {
-    debugger;
     this.IsLoggin=authService.getLoginStatus;
     this.roleName=authService.getRole;
     if(this.IsLoggin==false)
     {
       this.router.navigateByUrl('/login'); 
-    
     }
   }
   logout()

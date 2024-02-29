@@ -34,7 +34,6 @@ export class LoginComponent {
       this.showError = false;
       this.httpService.Login(this.itemForm.value).subscribe((data: any) => {
         if (data.userNo != 0) {
-          debugger;
 
           // localStorage.setItem('role', data.role);
           this.authService.SetRole(data.role);
@@ -55,6 +54,8 @@ export class LoginComponent {
         this.errorMessage = "An error occurred while logging in. Please try again later.";
         console.error('Login error:', error);
       });;
+    }else{
+      this.itemForm.markAllAsTouched();
     }
   }
   registration() {

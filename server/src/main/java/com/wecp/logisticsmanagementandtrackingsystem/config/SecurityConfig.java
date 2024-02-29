@@ -67,50 +67,50 @@
 //     }
 
     
-//     // @Bean
-//     // public PasswordEncoder passwordEncoder() {
-//     //     return new BCryptPasswordEncoder();
-//     // }
-    // @Bean
-    // public AuthenticationProvider authenticationProvider(){
-    //     DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
-    //     authenticationProvider.setUserDetailsService(userDeService());
-    //     authenticationProvider.setPasswordEncoder(passwordEncoder);
-    //     return authenticationProvider;
-    // }
-    // @Bean
-    // public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-    //     return config.getAuthenticationManager();
-    // }
+//     @Bean
+//     public PasswordEncoder passwordEncoder() {
+//         return new BCryptPasswordEncoder();
+//     }
+//     @Bean
+//     public AuthenticationProvider authenticationProvider(){
+//         DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
+//         authenticationProvider.setUserDetailsService(userDeService());
+//         authenticationProvider.setPasswordEncoder(passwordEncoder);
+//         return authenticationProvider;
+//     }
+//     @Bean
+//     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//         return config.getAuthenticationManager();
+//     }
  
     
  
-    // @Override
-    // protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //     auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    // }
+//     @Override
+//     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+//     }
  
-    // @Override
-    // protected void configure(HttpSecurity http) throws Exception {
-    //     http.cors().and().csrf().disable()
-    //             .authorizeRequests()
-    //             .antMatchers(HttpMethod.POST, "/api/register").permitAll()
-    //             .antMatchers(HttpMethod.POST, "/api/login").permitAll()
-    //             .antMatchers(HttpMethod.POST,"/api/business/cargo").hasAuthority("BUSINESS")
-    //             .antMatchers(HttpMethod.POST,"/api/business/assign-cargo").hasAnyAuthority("BUSINESS")
-    //             // .antMatchers(HttpMethod.POST,"/api/").hasAnyAuthority("authority_Name","authority_Name")
-    //             .antMatchers(HttpMethod.PUT,"/api/driver/cargo").hasAnyAuthority("DRIVER")
-    //             .antMatchers(HttpMethod.GET,"/api/business/cargo").hasAnyAuthority("BUSINESS")
-    //             .antMatchers(HttpMethod.GET,"/api/business/drivers").hasAnyAuthority("BUSINESS")
-    //             .antMatchers(HttpMethod.GET,"/api/customer/cargo-status").hasAnyAuthority("CUSTOMER")
-    //             .antMatchers(HttpMethod.GET,"/api/driver/cargo").hasAnyAuthority("DRIVER")
+//     @Override
+//     protected void configure(HttpSecurity http) throws Exception {
+//         http.cors().and().csrf().disable()
+//                 .authorizeRequests()
+//                 .antMatchers(HttpMethod.POST, "/api/register").permitAll()
+//                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+//                 .antMatchers(HttpMethod.POST,"/api/business/cargo").hasAuthority("BUSINESS")
+//                 .antMatchers(HttpMethod.POST,"/api/business/assign-cargo").hasAnyAuthority("BUSINESS")
+//                 // .antMatchers(HttpMethod.POST,"/api/").hasAnyAuthority("authority_Name","authority_Name")
+//                 .antMatchers(HttpMethod.PUT,"/api/driver/cargo").hasAnyAuthority("DRIVER")
+//                 .antMatchers(HttpMethod.GET,"/api/business/cargo").hasAnyAuthority("BUSINESS")
+//                 .antMatchers(HttpMethod.GET,"/api/business/drivers").hasAnyAuthority("BUSINESS")
+//                 .antMatchers(HttpMethod.GET,"/api/customer/cargo-status").hasAnyAuthority("CUSTOMER")
+//                 .antMatchers(HttpMethod.GET,"/api/driver/cargo").hasAnyAuthority("DRIVER")
  
-    //             .anyRequest().authenticated()
-    //             .and()
-    //             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                 .anyRequest().authenticated()
+//                 .and()
+//                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
  
-    //     http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    // }
+//         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//     }
  
     
 // }
