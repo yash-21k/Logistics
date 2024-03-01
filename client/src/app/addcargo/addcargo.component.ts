@@ -4,12 +4,11 @@ import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
 
-
 @Component({
   selector: 'app-addcargo',
   templateUrl: './addcargo.component.html'
- 
 })
+
 export class AddcargoComponent implements OnInit {
   itemForm: FormGroup;
   itemForm1: FormGroup;
@@ -22,8 +21,10 @@ export class AddcargoComponent implements OnInit {
   showMessage: any;
   responseMessage: any;
   driverId:any;
+
   constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
     {
+      // building reactive form using formbuilder and providing validations
       this.itemForm = this.formBuilder.group({
         content: [this.formModel.content,[ Validators.required]],
         size: [this.formModel.size,[ Validators.required]],
@@ -34,11 +35,13 @@ export class AddcargoComponent implements OnInit {
       driver: [this.formModel.driver]
     })
   }
+
   ngOnInit(): void {
    this.getCargo();
    this.getDrivers();
    this.driverId=null;
   }
+  
   getCargo() {
     this.cargList=[];
     this.httpService.getCargo().subscribe((data: any) => {
@@ -51,6 +54,7 @@ export class AddcargoComponent implements OnInit {
       console.error('Error:', error);
     });;
   }
+
   getDrivers() {
     this.driverList=[];
     this.httpService.getDrivers().subscribe((data: any) => {
@@ -83,10 +87,12 @@ export class AddcargoComponent implements OnInit {
       this.itemForm.markAllAsTouched();
     }
   }
+
   addDriver(value:any)
   {
     this.assignModel.cargoId=value.id
   }
+  
   assignDriver()
   {
     console.log("assigning")

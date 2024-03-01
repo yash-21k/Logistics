@@ -1,12 +1,7 @@
 package com.wecp.logisticsmanagementandtrackingsystem.entity;
-
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
-
+//Cargo entity interacts with other three entities - Business, Driver and customer 
 @Entity
 public class Cargo {
     @Id
@@ -17,14 +12,16 @@ public class Cargo {
     private String size;
     private String status; // Status can be 'PENDING', 'IN_TRANSIT', 'DELIVERED'
 
+    //Many cargos can be assigned to single business
     @ManyToOne
     private Business business;
 
+    //Many cargos can be assigned to single driver
     @ManyToOne
     private Driver driver;
 
     
-
+//Cargo has three properties --> size, content, status (pending, intransit, delivered)
     public Cargo(String content, String size, String status, Business business, Driver driver) {
         this.content = content;
         this.size = size;

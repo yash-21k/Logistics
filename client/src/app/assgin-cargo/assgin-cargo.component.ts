@@ -4,14 +4,12 @@ import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
 
-
 @Component({
   selector: 'app-assgin-cargo',
   templateUrl: './assgin-cargo.component.html',
   styleUrls: ['./assgin-cargo.component.scss']
 })
 export class AssginCargoComponent {
-  
 
   showError:boolean=false;
   errorMessage:any;
@@ -25,10 +23,12 @@ export class AssginCargoComponent {
   {
     //this.id = this.authService.getId;
   }
+
   ngOnInit(): void {
    this.getAssignedCargo();
    this.statusModel.newStatus=null;
   }
+
   getAssignedCargo() {
     // console.log("Driver ID is displayed")
     // console.log(this.id)
@@ -42,10 +42,12 @@ export class AssginCargoComponent {
       console.error('Login error:', error);
     });;
   }
+
   addStatus(value:any)
   {
     this.statusModel.cargoId=value.id
   }
+  
   assignDriver()
   {
     console.log("Update")
@@ -65,4 +67,5 @@ export class AssginCargoComponent {
       });;
     }
   }  
+  
 }

@@ -10,36 +10,36 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./dashbaord.component.scss']
 })
 export class DashbaordComponent {
-  cargolist:any={}
-  showError:any;
+  cargolist: any = {}
+  showError: any;
   errorMessage: any;
-  stateIdMd:any;
+  stateIdMd: any;
   roleName: string | null;
-  constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
-  {
+  constructor(public router: Router, public httpService: HttpService, private formBuilder: FormBuilder, private authService: AuthService) {
     console.log("Constructor");
-    this.roleName=authService.getRole;
+    this.roleName = authService.getRole;
   }
+
   ngOnInit(): void {
     console.log("ngOnInit");
     this.dashboardView();
   }
 
-  dashboardView()
-  {
+  dashboardView() {
     console.log(this.stateIdMd);
     // debugger;
-   
-      console.log("stateMd Call");
-      this.cargolist={};
-      this.httpService.getCargo().subscribe((data: any) => {
-        this.cargolist=data;
-        console.log(this.cargolist);
-      }, (error: any) => {
-        // Handle error
-        this.showError = true;
-        this.errorMessage = "An error occurred while searching in. Please try again later or no record found";
-        console.error('Login error:', error);
-      });;
-    }
+
+    console.log("stateMd Call");
+    this.cargolist = {};
+    this.httpService.getCargo().subscribe((data: any) => {
+      this.cargolist = data;
+      console.log(this.cargolist);
+    }, (error: any) => {
+      // Handle error
+      this.showError = true;
+      this.errorMessage = "An error occurred while searching in. Please try again later or no record found";
+      console.error('Login error:', error);
+    });;
+  }
+  
 }
