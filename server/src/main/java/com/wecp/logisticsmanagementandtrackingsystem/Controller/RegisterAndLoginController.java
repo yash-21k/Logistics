@@ -50,22 +50,27 @@ public class RegisterAndLoginController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         User registeredUser = userService.registerUser(user);
-        if (registeredUser.getRole().equals("BUSINESS")) {
-            Business business = new Business();
-            business.setName(registeredUser.getUsername());
-            business.setEmail(user.getEmail());
-            businessService.registerBusiness(business);
-            return ResponseEntity.ok(business);
-        } else if (registeredUser.getRole().equals("CUSTOMER")) {
-            Customer customer = new Customer();
-            customer.setName(registeredUser.getUsername());
-            customer.setEmail(user.getEmail());
-            return ResponseEntity.ok(customerService.createCustomer(customer));
-        } else {
-            Driver driver = new Driver();
-            driver.setName(registeredUser.getUsername());
-            driver.setEmail(user.getEmail());
-            return ResponseEntity.ok(driverService.createDriver(driver));
+        if(registeredUser == null){
+            return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
+        }
+        else{
+            if (registeredUser.getRole().equals("BUSINESS")) {
+                Business business = new Business();
+                business.setName(registeredUser.getUsername());
+                business.setEmail(user.getEmail());
+                businessService.registerBusiness(business);
+                return ResponseEntity.ok(business);
+            } else if (registeredUser.getRole().equals("CUSTOMER")) {
+                Customer customer = new Customer();
+                customer.setName(registeredUser.getUsername());
+                customer.setEmail(user.getEmail());
+                return ResponseEntity.ok(customerService.createCustomer(customer));
+            } else {
+                Driver driver = new Driver();
+                driver.setName(registeredUser.getUsername());
+                driver.setEmail(user.getEmail());
+                return ResponseEntity.ok(driverService.createDriver(driver));
+            }
         }
     }
  
@@ -83,8 +88,12 @@ public class RegisterAndLoginController {
         final String token = jwtUtil.generateToken(userDetails.getUsername());
  
         User user = userService.getUserByUsername(loginRequest.getUsername());
+        // if(user.getRole() == "DRIVER"){
+        //     Driver driver = driverService.getDriver(loginRequest.getUsername());
+        //     user.setId(driver.getId());
+        // }
  
-        return ResponseEntity.ok(new LoginResponse(token, user.getUsername(), user.getEmail(), user.getRole()));
+        return ResponseEntity.ok(new LoginResponse(token, user.getUsername(), user.getEmail(), user.getRole(), user.getId()));
     }
  
  

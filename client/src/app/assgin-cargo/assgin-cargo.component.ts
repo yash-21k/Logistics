@@ -19,11 +19,11 @@ export class AssginCargoComponent {
   statusModel: any={};
   showMessage: any;
   responseMessage: any;
-  id: any;
+  id1: any;
 
   constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
   {
-    //this.id = this.authService.getId;
+    this.id1 = this.authService.getId;
   }
   ngOnInit(): void {
    this.getAssignedCargo();
@@ -31,9 +31,10 @@ export class AssginCargoComponent {
   }
   getAssignedCargo() {
     // console.log("Driver ID is displayed")
-    // console.log(this.id)
+    //console.log(this.id)
+    // alert(this.id1)
     this.cargList=[];
-    this.httpService.getAssignOrders(1).subscribe((data: any) => {this.cargList=data;
+    this.httpService.getAssignOrders(this.id1).subscribe((data: any) => {this.cargList=data;
       console.log(this.cargList);
     }, error => {
       // Handle error
@@ -45,6 +46,7 @@ export class AssginCargoComponent {
   addStatus(value:any)
   {
     this.statusModel.cargoId=value.id
+    this.statusModel.status = value.status
   }
   assignDriver()
   {

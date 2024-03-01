@@ -11,19 +11,19 @@ public class LoginResponse {
     private String email;
 
     private String role;
-    // private Long Id;
+    private Long id;
 
     @JsonCreator
     public LoginResponse(@JsonProperty("token") String token,
                          @JsonProperty("username") String username,
                             @JsonProperty("email") String email,
-                            @JsonProperty("role") String role){
-                            //@JsonProperty("id") Long Id) {
+                            @JsonProperty("role") String role,
+                            @JsonProperty("id") Long id) {
         this.token = token;
         this.username = username;
         this.email = email;
         this.role = role;
-        //this.Id=Id;
+        this.id = id;
     }
 
     public LoginResponse(String token2, String role2, Integer userId) {
@@ -64,13 +64,13 @@ public class LoginResponse {
         this.role = role;
     }
 
-    // public Long getId() {
-    //     return Id;
-    // }
+    public Long getId() {
+        return id;
+    }
 
-    // public void setId(Long id) {
-    //     this.Id = id;
-    // }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }
 

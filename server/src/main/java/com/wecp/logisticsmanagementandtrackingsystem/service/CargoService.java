@@ -32,7 +32,7 @@ public class CargoService {
         Cargo cargo = cargoRepo.findById(cargoId).orElseThrow(() -> new EntityNotFoundException("Cargo with ID "+cargoId+" not found!"));
 
         Driver driver = driverRepo.findById(driverId).orElseThrow(() -> new EntityNotFoundException("Driver with ID "+driverId+" not found!"));
-
+        cargo.setStatus("Order Assigned");
         cargo.setDriver(driver);
         cargoRepo.save(cargo);
         return true;

@@ -2,8 +2,11 @@ package com.wecp.logisticsmanagementandtrackingsystem.service;
 
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Cargo;
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Driver;
+import com.wecp.logisticsmanagementandtrackingsystem.entity.User;
 import com.wecp.logisticsmanagementandtrackingsystem.repository.CargoRepository;
 import com.wecp.logisticsmanagementandtrackingsystem.repository.DriverRepository;
+import com.wecp.logisticsmanagementandtrackingsystem.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,9 @@ public class DriverService {
  
     @Autowired
     private CargoRepository cargoRepository;
+
+    @Autowired
+    private UserRepository userRepository;
  
     public Driver createDriver(Driver driver) {
         // add driver to database and return driver
@@ -30,10 +36,16 @@ public class DriverService {
         return driverRepository.findAll();
  
     }
- 
+    
+    // public Driver getDriver(String username){
+    //     return driverRepository.findDriverByName(username);
+    // }
+
     public List<Cargo> viewDriverCargos(Long driverId) {
         // get assigned cargos of driver from database
-        return cargoRepository.findByDriverId(driverId);
+        User user = userRepository.findById(driverId).get();
+        Driver driver = driverRepository.findByName(user.getUsername());
+        return cargoRepository.findByDriverId(driver.getId());
     }
  
     public boolean updateCargoStatus(Long cargoId, String newStatus) {

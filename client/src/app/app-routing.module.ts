@@ -16,9 +16,9 @@ const routes: Routes = [
   { path: 'addcargo', component: AddcargoComponent },  
   { path: 'asgin-cargo', component: AssginCargoComponent },  
   { path: 'viewcargostatus', component: ViewcargostatusComponent },  
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 
-  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
