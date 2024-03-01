@@ -28,8 +28,9 @@ export class AddcargoComponent implements OnInit {
       this.itemForm = this.formBuilder.group({
         content: [this.formModel.content,[ Validators.required]],
         size: [this.formModel.size,[ Validators.required]],
-        status: [this.formModel.status,[ Validators.required]]
-       
+        status: [this.formModel.status, [Validators.required]]
+        // status: ["Order Pending"]
+
     });
     this.itemForm1 = this.formBuilder.group({
       driver: [this.formModel.driver]
@@ -73,6 +74,7 @@ export class AddcargoComponent implements OnInit {
     if(this.itemForm.valid)
     {
         this.showError = false;
+
         this.httpService.addCargo(this.itemForm.value).subscribe((data: any) => {
           this.itemForm.reset();
           this.getCargo();
@@ -91,6 +93,7 @@ export class AddcargoComponent implements OnInit {
   addDriver(value:any)
   {
     this.assignModel.cargoId=value.id
+    // this.assignModel.cargo = value;
   }
   
   assignDriver()
@@ -104,6 +107,7 @@ export class AddcargoComponent implements OnInit {
       this.httpService.assignDriver(this.assignModel.driverId,this.assignModel.cargoId).subscribe((data: any) => {
         this.showMessage = true;
         this.responseMessage= data.message;
+        window.location.reload();
       }, error => {
         // Handle error
         this.showError = true;

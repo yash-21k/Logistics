@@ -36,8 +36,12 @@ public class CargoService {
 
         //check if the driver exists in database based on driver id, else throw error
         Driver driver = driverRepo.findById(driverId).orElseThrow(() -> new EntityNotFoundException("Driver with ID "+driverId+" not found!"));
+<<<<<<< HEAD
 
         //if the driver and cargo are found, assign cargo to driver and return true.
+=======
+        cargo.setStatus("Order Assigned");
+>>>>>>> da50e49a50c525ff88ad1b5e7f45b25cd602b482
         cargo.setDriver(driver);
         cargoRepo.save(cargo);
         return true;

@@ -14,7 +14,7 @@ export class RegistrationComponent {
   itemForm: FormGroup;
   formModel:any={role:null,email:'',password:'',username:''};
   showMessage:boolean=false;
- 
+  errorMessage:boolean=false;
   responseMessage: any;
   constructor(public router:Router, private httpService:HttpService, private formBuilder: FormBuilder) {
    
@@ -40,7 +40,10 @@ export class RegistrationComponent {
         this.responseMessage='Welcome '+data.name+" you are successfully registered";
         this.itemForm.reset();
        
-      },error=>{ })
+      },error=>{ 
+        this.errorMessage=true;
+        this.responseMessage='Username already exists';
+      })
     }
     else{
       this.itemForm.markAllAsTouched();

@@ -34,16 +34,18 @@
                         </div>
                         </div>
                   </div>
+                  
                   <div class="col-md-3">
                       <div class="mb-3">
                           <label for="status" class="form-label ">Status</label>
+                          <!-- <textarea name="status" id="status" formControlName="status" value="Order Pending" [(ngModel)]="formModel.status" class="form-control" cols="5" rows="1">Order Pending</textarea> -->
+                          <!-- <input type="text" value="Order Pending" name="status"  formControlName="status" [(ngModel)]="formModel.status" class="form-control" id="status" placeholder="status"> -->
                           <select (ngModel)="formModel.status" formControlName="status"  class="form-control" name="status" id="status">
                             <option value="null">Choose Status</option>
                              <option value="Order Pending">PENDING</option>
-                             <option value="Order Assigned">ASSIGNED</option>
-                             <option value="Order Delivered">DELIVERED</option>
+                             <!-- <option value="Order Assigned">ASSIGNED</option> -->
+                             <!-- <option value="Order Delivered">DELIVERED</option> -->
                           </select>
-                          <!-- <input type="text" name="status"  formControlName="status" [(ngModel)]="formModel.status" class="form-control" id="status" placeholder="status"> -->
                           <div *ngIf="itemForm.controls['status'].invalid && (itemForm.controls['status'].dirty || itemForm.controls['status'].touched)"
                           class="ng-dirty">
                           <span *ngIf="itemForm.controls['status'].errors">
@@ -86,8 +88,13 @@
                       <td>{{cargo.content}}</td>
                       <td>{{cargo.size}}</td>
                       <td>{{cargo.status}}</td>
-                      <td>
-                          <button data-bs-toggle="modal" (click)="addDriver(cargo)" data-bs-target="#driverModal" class="btn btn-primary">Assign</button>
+                      <td> 
+                        <div *ngIf="cargo.status == 'Order Pending'">
+                          <button *ngIf="cargo.status == 'Order Pending'" data-bs-toggle="modal" (click)="addDriver(cargo)" data-bs-target="#driverModal" class="btn btn-primary" [disabled]=false>Assign</button>
+                        </div>
+                        <div *ngIf="cargo.status == 'Order Assigned'">
+                          <button *ngIf="cargo.status == 'Order Assigned'" data-bs-toggle="modal" (click)="addDriver(cargo)" data-bs-target="#driverModal" class="btn btn-primary" [disabled]=true>Assign</button>
+                        </div>   
                       </td>
                   </tr>
               </tbody>

@@ -24,12 +24,12 @@ public class BusinessController {
     private DriverService driverService;
     private BusinessService businessService;
 
-    @PostMapping("/driver")
-    @PreAuthorize("hasAuthority('BUSINESS')")
-    public Driver createDriver(@RequestBody Driver driver) {
-        // add driver to database and return driver
-        return driverService.createDriver(driver);
-    }
+    // @PostMapping("/driver")
+    // //@PreAuthorize("hasAuthority('BUSINESS')")
+    // public Driver createDriver(@RequestBody Driver driver) {
+    //     // add driver to database and return driver
+    //     return driverService.createDriver(driver);
+    // }
  
     @Autowired
     public void setCargoService(CargoService cargoService) {
@@ -60,8 +60,6 @@ public class BusinessController {
     //@PreAuthorize("hasAuthority('BUSINESS')")
     public ResponseEntity<Cargo> addCargo(@RequestBody Cargo cargo) {
         System.out.println("Cargo added");
-        // this.businessService.registerBusiness(cargo.getBusiness());
-        // this.driverService.createDriver(cargo.getDriver());
 
         // add cargo  and return the added cargo with status code 200
         return new ResponseEntity<Cargo>(this.cargoService.addCargo(cargo), HttpStatus.OK);

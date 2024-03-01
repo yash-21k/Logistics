@@ -14,12 +14,12 @@ export class AuthService {
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }
-  // SetId(Id:any){
-  //   localStorage.setItem('Id', Id);
-  // }
-  // get getId():string|null{
-  //   return localStorage.getItem('Id');
-  // }
+  SetId(id:any){
+    localStorage.setItem('id', id);
+  }
+  get getId ():string|null{
+    return localStorage.getItem('id');
+  }
    SetRole(role:any)
   {
     localStorage.setItem('role',role);
@@ -41,6 +41,7 @@ export class AuthService {
   logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('id');
      this.token=null;
      this.isLoggedIn=false
    }
