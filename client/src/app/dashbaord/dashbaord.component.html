@@ -1,3 +1,57 @@
-<div class="row text-center">
-<h1 class="text-capitalize">LogiTrax</h1>
+<div class="customer" *ngIf="roleName === 'BUSINESS'">
+    <div class="container">
+        <div class="welcome">
+            <h1>Welcome to Logistics Management System</h1>
+            <p>Welcome, <span class="username">{{ username }}</span></p>
+            <h2>User: Business Account</h2>
+            <p>Assign Cargo</p>
+        </div>
+        <div class="features">
+            <h3>Features:</h3>
+            <ul>
+                <li>Assign Cargo: Allocate cargo to specific routes or destinations efficiently.</li>
+            </ul>
+        </div>
+        <div class="get-started">
+            <p>Get Started: Dive into efficient cargo management and streamline your logistics operations now!</p>
+        </div>
+    </div>
+</div>
+<div *ngIf="roleName === 'DRIVER'">
+    <div class="container">
+        <div class="welcome">
+            <h1>Welcome to Logistics Management System</h1>
+            <p>Welcome, <span class="username">{{ username }}</span></p>
+            <h2>User: Driver Account</h2>
+            <p>Update Cargo Status</p>
+        </div>
+        <div class="features">
+            <h3>Features:</h3>
+            <ul>
+                <li>Update Cargo Status: Update Cargo Status to Order Delivered / Oreder In-Transit</li>
+            </ul>
+        </div>
+        <div class="get-started">
+            <p>Get Started: Dive into efficient cargo management and streamline your logistics operations now!</p>
+        </div>
+    </div>
+</div>
+<div *ngIf="roleName === 'CUSTOMER'">
+    <div class="container">
+        <div class="welcome">
+            <h1>Welcome to Logistics Management System</h1>
+            <p>Welcome, <span class="username">{{ username }}</span></p>
+            <h2>User: Customer Account</h2>
+            <p>View Cargo Status</p>
+        </div>
+        <div class="features">
+            <h3>Features:</h3>
+            <ul>
+                <li>View Cargo Status: View Cargo Status by entering Cargo ID</li>
+            </ul>
+        </div>
+        <div class="get-started">
+            <p>Get Started: Dive into efficient cargo management and streamline your logistics operations now!</p>
+        </div>
+    </div>
 </div>

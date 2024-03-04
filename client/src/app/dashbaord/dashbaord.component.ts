@@ -10,36 +10,23 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./dashbaord.component.scss']
 })
 export class DashbaordComponent {
-  cargolist: any = {}
-  showError: any;
-  errorMessage: any;
-  stateIdMd: any;
+  IsLoggin: any = false;
   roleName: string | null;
-  constructor(public router: Router, public httpService: HttpService, private formBuilder: FormBuilder, private authService: AuthService) {
-    console.log("Constructor");
+  username: string | null;
+  constructor(private authService: AuthService, private router: Router) {
+    this.IsLoggin = authService.getLoginStatus;
     this.roleName = authService.getRole;
-  }
+    this.username = authService.getUsername;
+    if (this.IsLoggin == false) {
+      this.router.navigateByUrl('/login');
 
-  ngOnInit(): void {
-    console.log("ngOnInit");
-    this.dashboardView();
-  }
 
-  dashboardView() {
-    console.log(this.stateIdMd);
-    // debugger;
-
-    console.log("stateMd Call");
-    this.cargolist = {};
-    this.httpService.getCargo().subscribe((data: any) => {
-      this.cargolist = data;
-      console.log(this.cargolist);
-    }, (error: any) => {
-      // Handle error
-      this.showError = true;
-      this.errorMessage = "An error occurred while searching in. Please try again later or no record found";
-      console.error('Login error:', error);
-    });;
+    }
   }
   
+
+  logout() {
+    this.authService.logout();
+    window.location.reload();
+  }
 }

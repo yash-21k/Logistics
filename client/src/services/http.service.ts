@@ -8,26 +8,35 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class HttpService {
-  public serverName=environment.apiUrl;
-  constructor(private http: HttpClient, private authService:AuthService) {
+  public serverName = environment.apiUrl;
+  constructor(private http: HttpClient, private authService: AuthService) {
 
-   }
- 
-  getOrderStatus(cargoId:any):Observable<any> {
-   
+  }
+
+  getCargoById(cargoId: any): Observable<any> {
+
     const authToken = this.authService.getToken();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`)
-    return this.http.get(this.serverName+`/api/customer/cargo-status?cargoId=`+cargoId,{headers:headers});
+    return this.http.get(this.serverName + `/api/business/cargo-id?cargoId=` + cargoId, { headers: headers });
   }
-  updateCargoStatus(newStatus:any,cargoId:any):Observable<any> {
-  
+
+  getOrderStatus(cargoId: any): Observable<any> {
+
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`)
+    return this.http.get(this.serverName + `/api/customer/cargo-status?cargoId=` + cargoId, { headers: headers });
+  }
+  updateCargoStatus(newStatus: any, cargoId: any): Observable<any> {
+
     const authToken = this.authService.getToken();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`);
-    return this.http.put<any>(this.serverName+'/api/driver/update-cargo-status?cargoId='+cargoId+'&newStatus='+newStatus,{},{headers:headers});
+    return this.http.put<any>(this.serverName + '/api/driver/update-cargo-status?cargoId=' + cargoId + '&newStatus=' + newStatus, {}, { headers: headers });
   }
   assignDriver(driverid: any, cargoId: any): Observable<any> {
     const authToken = this.authService.getToken();
@@ -40,53 +49,53 @@ export class HttpService {
       { headers: headers }
     );
   }
-  
 
-  getAssignOrders(driverId:any):Observable<any> {
-   
+
+  getAssignOrders(driverId: any): Observable<any> {
+
     const authToken = this.authService.getToken();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`)
-    return this.http.get(this.serverName+`/api/driver/cargo?driverId=`+driverId,{headers:headers});
+    return this.http.get(this.serverName + `/api/driver/cargo?driverId=` + driverId, { headers: headers });
   }
-  getCargo():Observable<any> {
-   
+  getCargo(): Observable<any> {
+
     const authToken = this.authService.getToken();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`)
-    return this.http.get(this.serverName+`/api/business/cargo`,{headers:headers});
+    return this.http.get(this.serverName + `/api/business/cargo`, { headers: headers });
   }
 
-  getDrivers():Observable<any> {
-   
+  getDrivers(): Observable<any> {
+
     const authToken = this.authService.getToken();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`)
-    return this.http.get(this.serverName+`/api/business/drivers`,{headers:headers});
+    return this.http.get(this.serverName + `/api/business/drivers`, { headers: headers });
   }
-  addCargo(details:any):Observable<any> {
-  
+  addCargo(details: any): Observable<any> {
+
     const authToken = this.authService.getToken();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`);
-    return this.http.post(this.serverName+'/api/business/cargo',details,{headers:headers});
+    return this.http.post(this.serverName + '/api/business/cargo', details, { headers: headers });
   }
-  Login(details:any):Observable<any> {
-    
+  Login(details: any): Observable<any> {
+
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
-    return this.http.post(this.serverName+'/api/login',details,{headers:headers});
+    return this.http.post(this.serverName + '/api/login', details, { headers: headers });
   }
-  registerUser(details:any):Observable<any> {
+  registerUser(details: any): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
-    return this.http.post(this.serverName+'/api/register',details,{headers:headers});
+    return this.http.post(this.serverName + '/api/register', details, { headers: headers });
   }
- 
-  
-  
+
+
+
 }

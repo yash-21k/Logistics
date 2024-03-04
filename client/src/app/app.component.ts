@@ -8,23 +8,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  IsLoggin:any=false;
+  IsLoggin: any = false;
   roleName: string | null;
-  constructor(private authService: AuthService, private router:Router)
-  {
-    debugger;
-    this.IsLoggin=authService.getLoginStatus;
-    this.roleName=authService.getRole;
-    if(this.IsLoggin==false)
-    {
-      this.router.navigateByUrl('/login'); 
-    
+  username: string | null;
+  constructor(private authService: AuthService, private router: Router) {
+    this.IsLoggin = authService.getLoginStatus;
+    this.roleName = authService.getRole;
+    this.username = authService.getUsername;
+
+
+    if (this.IsLoggin == false) {
+      this.router.navigateByUrl('/dashbaord');
+
     }
   }
-  logout()
-{
-  this.authService.logout();
-  window.location.reload();
-}
+
+  logout() {
+    this.authService.logout();
+    window.location.reload();
+  }
 
 }
+// if(authService.getRole!= this.roleName){
+//   this.router.navigateByUrl('/dashbaord');
+// }

@@ -1,6 +1,5 @@
 package com.wecp.logisticsmanagementandtrackingsystem.service;
 
-
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Business;
 import com.wecp.logisticsmanagementandtrackingsystem.repository.BusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;

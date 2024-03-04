@@ -8,21 +8,22 @@ import { AppComponent } from './app.component';
 import { DashbaordComponent } from './dashbaord/dashbaord.component';
 import { AssginCargoComponent } from './assgin-cargo/assgin-cargo.component';
 import { ViewcargostatusComponent } from './viewcargostatus/viewcargostatus.component';
+import { WelcomepageComponent } from './welcomepage/welcomepage.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'dashboard', component: DashbaordComponent },
-  { path: 'addcargo', component: AddcargoComponent },  
-  { path: 'asgin-cargo', component: AssginCargoComponent },  
-  { path: 'viewcargostatus', component: ViewcargostatusComponent },  
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-
-  { path: '**', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'addcargo', component: AddcargoComponent },
+  { path: 'asgin-cargo', component: AssginCargoComponent },
+  { path: 'viewcargostatus', component: ViewcargostatusComponent },
+  { path: 'welcome', component: WelcomepageComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

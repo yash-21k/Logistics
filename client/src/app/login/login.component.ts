@@ -16,6 +16,7 @@ export class LoginComponent {
   itemForm: FormGroup;
   formModel: any = {};
   showError: boolean = false;
+  passwordFieldType: string = 'password'; // Default to password type
   errorMessage: any;
   constructor(public router: Router, private formBuilder: FormBuilder, private httpService: HttpService, private authService: AuthService) {
     this.itemForm = this.formBuilder.group({
@@ -27,6 +28,9 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
+  }
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
   onLogin() {
     //compelete this
@@ -42,7 +46,9 @@ export class LoginComponent {
           // alert(data.id);
           this.authService.SetId(data.id);
           this.authService.SetRole(data.role);
-          this.authService.saveToken(data.token)
+          this.authService.saveToken(data.token);
+          // Yash changes
+          this.authService.setUsername(data.username)
           this.router.navigateByUrl('/dashboard');
 
 
@@ -61,8 +67,5 @@ export class LoginComponent {
       });;
     }
   }
-  registration() {
-    //compelete this '
-    this.router.navigate(['registration']);
-  }
+  
 }

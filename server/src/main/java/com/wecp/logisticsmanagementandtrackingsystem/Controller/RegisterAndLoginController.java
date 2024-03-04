@@ -1,6 +1,5 @@
 package com.wecp.logisticsmanagementandtrackingsystem.Controller;
- 
- 
+
 import com.wecp.logisticsmanagementandtrackingsystem.dto.LoginRequest;
 import com.wecp.logisticsmanagementandtrackingsystem.dto.LoginResponse;
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Business;
@@ -24,36 +23,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
- 
+
 @RestController
 @RequestMapping("/api")
 public class RegisterAndLoginController {
- 
+
     @Autowired
     private UserService userService;
- 
+
     @Autowired
     private BusinessService businessService;
- 
+
     @Autowired
     private CustomerService customerService;
- 
+
     @Autowired
     private DriverService driverService;
- 
+
     @Autowired
     private AuthenticationManager authenticationManager;
- 
+
     @Autowired
     private JwtUtil jwtUtil;
- 
+
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         User registeredUser = userService.registerUser(user);
-        if(registeredUser == null){
+        if (registeredUser == null) {
             return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
-        }
-        else{
+        } else {
             if (registeredUser.getRole().equals("BUSINESS")) {
                 Business business = new Business();
                 business.setName(registeredUser.getUsername());
@@ -73,28 +71,27 @@ public class RegisterAndLoginController {
             }
         }
     }
- 
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         } catch (AuthenticationException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password", e);
         }
- 
+
         final UserDetails userDetails = userService.loadUserByUsername(loginRequest.getUsername());
         final String token = jwtUtil.generateToken(userDetails.getUsername());
- 
+
         User user = userService.getUserByUsername(loginRequest.getUsername());
         // if(user.getRole() == "DRIVER"){
-        //     Driver driver = driverService.getDriver(loginRequest.getUsername());
-        //     user.setId(driver.getId());
+        // Driver driver = driverService.getDriver(loginRequest.getUsername());
+        // user.setId(driver.getId());
         // }
- 
-        return ResponseEntity.ok(new LoginResponse(token, user.getUsername(), user.getEmail(), user.getRole(), user.getId()));
+
+        return ResponseEntity
+                .ok(new LoginResponse(token, user.getUsername(), user.getEmail(), user.getRole(), user.getId()));
     }
- 
- 
+
 }

@@ -1,4 +1,5 @@
 package com.wecp.logisticsmanagementandtrackingsystem.jwt;
+
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -31,7 +32,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+            FilterChain filterChain) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
@@ -48,8 +49,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
                 Claims claims = jwtUtil.extractAllClaims(jwt);
-                Collection<? extends GrantedAuthority> authorities =
-                        AuthorityUtils.createAuthorityList((String) claims.get("role"));
+                Collection<? extends GrantedAuthority> authorities = AuthorityUtils
+                        .createAuthorityList((String) claims.get("role"));
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, authorities);

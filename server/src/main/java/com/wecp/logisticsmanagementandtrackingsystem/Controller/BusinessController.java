@@ -1,6 +1,5 @@
 package com.wecp.logisticsmanagementandtrackingsystem.Controller;
 
-
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Cargo;
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Driver;
 import com.wecp.logisticsmanagementandtrackingsystem.service.BusinessService;
@@ -11,34 +10,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/business")
 public class BusinessController {
- 
-    
+
     private CargoService cargoService;
     private DriverService driverService;
     private BusinessService businessService;
 
-    // @PostMapping("/driver")
-    // //@PreAuthorize("hasAuthority('BUSINESS')")
-    // public Driver createDriver(@RequestBody Driver driver) {
-    //     // add driver to database and return driver
-    //     return driverService.createDriver(driver);
-    // }
- 
     @Autowired
     public void setCargoService(CargoService cargoService) {
         this.cargoService = cargoService;
     }
+
     @Autowired
     public void setDriverService(DriverService driverService) {
         this.driverService = driverService;
     }
+
     @Autowired
     public void setBusinessService(BusinessService businessService) {
         this.businessService = businessService;
@@ -57,30 +49,36 @@ public class BusinessController {
     }
 
     @PostMapping("/cargo")
-    //@PreAuthorize("hasAuthority('BUSINESS')")
+    @PreAuthorize("hasAuthority('BUSINESS')")
     public ResponseEntity<Cargo> addCargo(@RequestBody Cargo cargo) {
-        System.out.println("Cargo added");
 
-        // add cargo  and return the added cargo with status code 200
+        // add cargo and return the added cargo with status code 200
         return new ResponseEntity<Cargo>(this.cargoService.addCargo(cargo), HttpStatus.OK);
     }
- 
+
+    @GetMapping("/cargo-id")
+    @PreAuthorize("hasAuthority('BUSINESS')")
+    public ResponseEntity<Cargo> getCargoById(@RequestParam Long cargoId) {
+        // return list of drivers
+        return new ResponseEntity<Cargo>(this.cargoService.getCargoById(cargoId), HttpStatus.OK);
+    }
+
     @GetMapping("/drivers")
-    //@PreAuthorize("hasAuthority('BUSINESS')")
+    @PreAuthorize("hasAuthority('BUSINESS')")
     public ResponseEntity<List<Driver>> getAllDrivers() {
         // return list of drivers
         return new ResponseEntity<List<Driver>>(this.driverService.getAllDrivers(), HttpStatus.OK);
     }
- 
+
     @GetMapping("/cargo")
-    //@PreAuthorize("hasAuthority('BUSINESS')")
+    @PreAuthorize("hasAuthority('BUSINESS')")
     public ResponseEntity<List<Cargo>> viewAllCargos() {
         // return all cargos with status code 200
         return new ResponseEntity<List<Cargo>>(this.cargoService.viewAllCargos(), HttpStatus.OK);
     }
 
     @PostMapping("/assign-cargo")
-    //@PreAuthorize("hasAuthority('BUSINESS')")
+    @PreAuthorize("hasAuthority('BUSINESS')")
     public ResponseEntity<String> assignCargoToDriver(@RequestParam Long cargoId, @RequestParam Long driverId) {
         // assign cargo to a driver
         System.out.println("Assigned");

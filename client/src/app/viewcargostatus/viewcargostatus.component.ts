@@ -31,8 +31,11 @@ export class ViewcargostatusComponent {
       }, error => {
         // Handle error
         this.showError = true;
-        this.errorMessage = "An error occurred while searching in. Please try again later or no record found";
+        this.errorMessage = `No result found with Cargo Id ${this.cargoIdMd}. Please try with valid Cargo ID.`;
         console.error('Login error:', error);
+        setTimeout(() => {
+          this.showError = false;
+        }, 5000);
       });;
     }
      

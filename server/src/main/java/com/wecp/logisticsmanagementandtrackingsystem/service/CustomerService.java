@@ -1,6 +1,5 @@
 package com.wecp.logisticsmanagementandtrackingsystem.service;
 
-
 import com.wecp.logisticsmanagementandtrackingsystem.dto.CargoStatusResponse;
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Cargo;
 import com.wecp.logisticsmanagementandtrackingsystem.entity.Customer;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
-
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -25,15 +23,14 @@ public class CustomerService {
     }
 
     public CargoStatusResponse viewCargoStatus(Long cargoId) {
-       
+
         Cargo cargo = (cargoRepository.findById(cargoId)).orElse(null);
-        if(cargo!=null){
-            return new CargoStatusResponse(cargo.getId(),cargo.getStatus());
-        }
-        else{
+        if (cargo != null) {
+            return new CargoStatusResponse(cargo.getId(), cargo.getStatus());
+        } else {
             return null;
         }
-        
+
         // Find the cargo by its id
     }
 }

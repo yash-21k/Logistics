@@ -1,8 +1,6 @@
 package com.wecp.logisticsmanagementandtrackingsystem.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +11,7 @@ public class Business {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     public Business(String name, String email) {
         this.name = name;
         this.email = email;
@@ -24,7 +23,7 @@ public class Business {
 
     private String email;
 
-    @OneToMany(mappedBy = "business",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Cargo> cargos;
 
@@ -59,5 +58,5 @@ public class Business {
     public void setCargos(List<Cargo> cargos) {
         this.cargos = cargos;
     }
-    
+
 }

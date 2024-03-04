@@ -1,11 +1,9 @@
 package com.wecp.logisticsmanagementandtrackingsystem.entity;
- 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
- 
 import javax.persistence.*;
 import java.util.List;
- 
+
 @Entity
 public class Driver {
     @Id
@@ -15,7 +13,7 @@ public class Driver {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "driver" ,cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Cargo> assignedCargos;
 
