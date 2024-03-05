@@ -1,15 +1,14 @@
 <div class="customer" *ngIf="roleName === 'BUSINESS'">
     <div class="container">
         <div class="welcome">
-            <h1>Welcome to Logistics Management System</h1>
+            <h1>Welcome to LogiTrax Ltd.</h1>
             <p>Welcome, <span class="username">{{ username }}</span></p>
             <h2>User: Business Account</h2>
-            <p>Assign Cargo</p>
         </div>
         <div class="features">
             <h3>Features:</h3>
             <ul>
-                <li>Assign Cargo: Allocate cargo to specific routes or destinations efficiently.</li>
+                <li>Add and assign Cargo: Allocate cargo to specific routes or destinations efficiently.</li>
             </ul>
         </div>
         <div class="get-started">
@@ -20,10 +19,9 @@
 <div *ngIf="roleName === 'DRIVER'">
     <div class="container">
         <div class="welcome">
-            <h1>Welcome to Logistics Management System</h1>
+            <h1>Welcome to LogiTrax Ltd.</h1>
             <p>Welcome, <span class="username">{{ username }}</span></p>
             <h2>User: Driver Account</h2>
-            <p>Update Cargo Status</p>
         </div>
         <div class="features">
             <h3>Features:</h3>
@@ -39,10 +37,9 @@
 <div *ngIf="roleName === 'CUSTOMER'">
     <div class="container">
         <div class="welcome">
-            <h1>Welcome to Logistics Management System</h1>
+            <h1>Welcome to LogiTrax Ltd.</h1>
             <p>Welcome, <span class="username">{{ username }}</span></p>
             <h2>User: Customer Account</h2>
-            <p>View Cargo Status</p>
         </div>
         <div class="features">
             <h3>Features:</h3>
