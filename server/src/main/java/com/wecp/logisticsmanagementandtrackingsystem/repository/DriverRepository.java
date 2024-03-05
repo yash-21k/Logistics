@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Long> {
-    // extend jpa repository and add custom methods if needed
+    // extended jpa repository and added custom method for finding driver by name
     public Driver findByName(String name);
 }

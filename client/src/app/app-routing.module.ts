@@ -10,6 +10,7 @@ import { AssginCargoComponent } from './assgin-cargo/assgin-cargo.component';
 import { ViewcargostatusComponent } from './viewcargostatus/viewcargostatus.component';
 import { WelcomepageComponent } from './welcomepage/welcomepage.component';
 
+//routings for every component 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
@@ -18,7 +19,9 @@ const routes: Routes = [
   { path: 'asgin-cargo', component: AssginCargoComponent },
   { path: 'viewcargostatus', component: ViewcargostatusComponent },
   { path: 'welcome', component: WelcomepageComponent },
+  //routing for blank path
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  //routing for wild path
   { path: '**', redirectTo: '/welcome', pathMatch: 'full' },
 ];
 

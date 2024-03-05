@@ -13,15 +13,19 @@ import com.wecp.logisticsmanagementandtrackingsystem.dto.CargoStatusResponse;
 import com.wecp.logisticsmanagementandtrackingsystem.service.CustomerService;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/customer")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/api/customer/cargo-status")
+    @GetMapping("/cargo-status")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     public ResponseEntity<CargoStatusResponse> viewCargoStatus(@RequestParam Long cargoId) {
+
+        // get cargo status from customer service and return it with status code 200
+        // if cargo status is not found, return 404 status c
+
         CargoStatusResponse cargoStatusResponse = customerService.viewCargoStatus(cargoId);
         if (cargoStatusResponse != null) {
             return new ResponseEntity<CargoStatusResponse>(customerService.viewCargoStatus(cargoId), HttpStatus.OK);
@@ -29,9 +33,6 @@ public class CustomerController {
             return new ResponseEntity<CargoStatusResponse>(HttpStatus.NOT_FOUND);
         }
 
-        // get cargo status from customer service and return it with status code 200
-
-        // if cargo status is not found, return 404 status code
     }
 
 }

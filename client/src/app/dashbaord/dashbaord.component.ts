@@ -20,11 +20,10 @@ export class DashbaordComponent {
     if (this.IsLoggin == false) {
       this.router.navigateByUrl('/login');
 
-
     }
   }
-  
 
+  //logout function
   logout() {
     this.authService.logout();
     window.location.reload();

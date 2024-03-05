@@ -18,16 +18,14 @@ export class ViewcargostatusComponent {
   {
  
   }
- 
+ // Search for the cargo by cargoId
   search()
   {
-    debugger;
     if(this.cargoIdMd!=null)
     {
       this.cargo={};
       this.httpService.getOrderStatus(this.cargoIdMd).subscribe((data: any) => {
         this.cargo=data;
-        console.log(this.cargo);
       }, error => {
         // Handle error
         this.showError = true;

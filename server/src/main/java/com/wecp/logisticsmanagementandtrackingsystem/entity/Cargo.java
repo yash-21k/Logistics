@@ -21,8 +21,12 @@ public class Cargo {
     @ManyToOne
     private Driver driver;
 
-    // Cargo has three properties --> size, content, status (pending, intransit,
-    // delivered)
+    /* Cargo has three properties --> 
+    size, 
+    content, 
+    status (pending, intransit, delivered)
+    */
+    
     public Cargo(String content, String size, String status, Business business, Driver driver) {
         this.content = content;
         this.size = size;

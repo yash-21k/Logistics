@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping
 public class DriverController {
 
+    // Dependency Injections
     @Autowired
     private DriverService driverService;
 
@@ -33,7 +34,7 @@ public class DriverController {
         boolean updateSuccess = driverService.updateCargoStatus(cargoId, newStatus);
 
         if (updateSuccess) {
-            // id cargo update sucessfully return this
+            // if cargo updated sucessfully return this
             return ResponseEntity.ok().body("{\"message\": \"Cargo status updated successfully.\"}");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update cargo status.");

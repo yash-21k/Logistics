@@ -16,45 +16,40 @@ export class LoginComponent {
   itemForm: FormGroup;
   formModel: any = {};
   showError: boolean = false;
-  passwordFieldType: string = 'password'; // Default to password type
+  passwordFieldType: string = 'password'; // Default to password type for toggling show password
   errorMessage: any;
   constructor(public router: Router, private formBuilder: FormBuilder, private httpService: HttpService, private authService: AuthService) {
+    //form validators for login
     this.itemForm = this.formBuilder.group({
-      //compelete this
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
-
     });
   }
 
   ngOnInit(): void {
   }
+
+  //show password function
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
+
+  //Login function using httpService which accepts the form data  
   onLogin() {
-    //compelete this
     if (this.itemForm.valid) {
       this.showError = false;
       this.httpService.Login(this.itemForm.value).subscribe((data: any) => {
         if (data.userNo != 0) {
-          // debugger;
-
           localStorage.setItem('role', data.role);
-          // console.log("ID Details");
-          // console.log(data.id)
-          // alert(data.id);
           this.authService.SetId(data.id);
           this.authService.SetRole(data.role);
           this.authService.saveToken(data.token);
-          // Yash changes
           this.authService.setUsername(data.username)
           this.router.navigateByUrl('/dashboard');
 
-
           setTimeout(() => {
             window.location.reload();
-          }, 1000);
+          }, 1);  
         } else {
           this.showError = true;
           this.errorMessage = "Wrong User or Password";
@@ -65,7 +60,9 @@ export class LoginComponent {
         this.errorMessage = "Invalid Username or Password. Please check and try again.";
         console.error('Login error:', error);
       });;
+    }else {
+      this.itemForm.markAllAsTouched();
     }
   }
-  
+
 }

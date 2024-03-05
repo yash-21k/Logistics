@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessService {
-
+    //Dependency Injection
     @Autowired
     private BusinessRepository businessRepository;
 

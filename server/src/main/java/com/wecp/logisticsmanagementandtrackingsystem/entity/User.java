@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
+    // Primary Key Generation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,6 +15,7 @@ public class User {
 
     private String email;
 
+    // Getters & Setters
     public Long getId() {
         return id;
     }

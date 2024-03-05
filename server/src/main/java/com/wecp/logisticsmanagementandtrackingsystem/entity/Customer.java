@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class Customer {
+    // Primary key generation
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -11,6 +12,7 @@ public class Customer {
     private String name;
     private String email;
 
+    // Parameterized constructor
     public Customer(String name, String email) {
         this.name = name;
         this.email = email;
@@ -19,6 +21,7 @@ public class Customer {
     public Customer() {
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
