@@ -8,7 +8,7 @@
     <div class="row mt-3">
       <div class="col-md-6 offset-md-3">
         <div class="d-flex justify-content-center">
-          <input class="form-control w-50 " type="text" [(ngModel)]="cargoIdMd" placeholder="Search Cargo Id">
+          <input class="form-control w-50 " type="text" [(ngModel)]="cargoIdMd" placeholder="Search A.W.B No. ">
           <div class="input-group-append mx-3">
             <button class="button" (click)="search()"><span class="span">🔍</span></button>
           </div>
@@ -18,7 +18,7 @@
     <div class="container mt-5 d-flex justify-content-center">
       <div class="card1">
         <ul>
-          <li>Cargo Id: <span class="cargoid">{{ cargo.cargoId }}</span></li>
+          <li>A.W.B No.: <span class="cargoid">{{ cargo.cargoId }}</span></li>
           <li>Delivery Status: <span
               [ngClass]="{ 'blue': cargo.status === 'Order Assigned', 'yellow': cargo.status === 'Order In-transit', 'green': cargo.status === 'Order Delivered' }">{{
               cargo.status }}</span>

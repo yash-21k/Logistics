@@ -17,7 +17,12 @@
               </div>
               <div *ngIf="itemForm.get('username')?.hasError('pattern') && itemForm.get('username')?.touched"
                 class="error">
-                <span class="text-danger">Username should not be less than 5 characters</span>
+                <ul class="text-danger">
+                  <li>Username should not be less than 5 characters</li>
+                  <li>Username should not be more than 19 characters</li>
+                  <li>Username Should not start with Capital Letter / Symbol / Number</li>
+                  <li class="text-success">eg: yash123, esha123, yash21k</li>
+                </ul>
               </div>
 
             </div>
@@ -104,7 +109,7 @@
                 Login</a></p>
           </div>
           <div *ngIf="showMessage" class="alert alert-success mt-4" role="alert">
-            {{responseMessage}}
+            {{responseMessage}} Redirecting you to login page!
           </div>
           <div *ngIf="errorMessage" class="alert alert-danger mt-4" role="alert"><span></span>
             {{responseMessage}}

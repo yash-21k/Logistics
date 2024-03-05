@@ -29,7 +29,7 @@ export class ViewcargostatusComponent {
       }, error => {
         // Handle error
         this.showError = true;
-        this.errorMessage = `No result found with Cargo Id ${this.cargoIdMd}. Please try with valid Cargo ID.`;
+        this.errorMessage = `No result found with A.W.B No. ${this.cargoIdMd}. Please try with valid A.W.B No.`;
         console.error('Login error:', error);
         setTimeout(() => {
           this.showError = false;

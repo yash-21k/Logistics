@@ -20,7 +20,7 @@ export class RegistrationComponent {
   constructor(public router: Router, private httpService: HttpService, private formBuilder: FormBuilder) {
     //form validators for all the fields
     this.itemForm = this.formBuilder.group({
-      username: [this.formModel.username, [Validators.required, Validators.pattern("^[A-Za-z]\\w{5,19}$")]],
+      username: [this.formModel.username, [Validators.required, Validators.pattern("^[a-z]\\w{5,19}$")]],
       email: [this.formModel.email, [Validators.required, Validators.email]],
       password: [this.formModel.password, [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$")]],
       retypepassword: ['', [Validators.required]],
@@ -59,6 +59,9 @@ export class RegistrationComponent {
         this.showMessage = true;
         this.responseMessage = 'Welcome ' + data.name + " you are successfully registered";
         this.itemForm.reset();
+        setTimeout(() => {
+          this.router.navigateByUrl('/login')
+        }, 2000);
 
       }, error => {
         this.errorMessage = true;
